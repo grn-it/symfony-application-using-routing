@@ -1,0 +1,6 @@
+controllers:
+    resource: ../src/Controller/Catalog
+    type: attribute
+    prefix: '/catalog'
+    name_prefix: 'catalog_'
+    trailing_slash_on_root: false
