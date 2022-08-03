@@ -1,6 +1,6 @@
 # Symfony Application Using Routing
 
-Here are simple examples of how to use routing in a Symfony web application.  
+Simple examples of how to use routing in a Symfony web application.  
 
 The main meaning of these samples is in the configuration and routing settings, and not in the business logic, so the actions in the controllers have pseudo-code in the form of comments.  
 
