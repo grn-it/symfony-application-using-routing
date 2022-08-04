@@ -35,6 +35,7 @@ symfony console debug:router
  ---------------------------------- -------- -------- ------ ----------------------------------------- 
   Name                               Method   Scheme   Host   Path                                     
  ---------------------------------- -------- -------- ------ ----------------------------------------- 
+  catalog_products_search            GET      ANY      ANY    /catalog/products/                       
   _preview_error                     ANY      ANY      ANY    /_error/{code}.{_format}                 
   catalog_categories_list            GET      ANY      ANY    /catalog/categories/                     
   catalog_categories_item            GET      ANY      ANY    /catalog/categories/{uuid}               
@@ -47,7 +48,6 @@ symfony console debug:router
   catalog_products_add               POST     ANY      ANY    /catalog/products/                       
   catalog_products_edit              PUT      ANY      ANY    /catalog/products/{uuid}                 
   catalog_products_delete            DELETE   ANY      ANY    /catalog/products/{uuid}                 
-  catalog_products_search            GET      ANY      ANY    /catalog/products/                       
   catalog_products_reviews_list      GET      ANY      ANY    /catalog/products/{uuid}/reviews         
   catalog_reviews_list               GET      ANY      ANY    /catalog/reviews/                        
   catalog_reviews_item               GET      ANY      ANY    /catalog/reviews/{uuid}                  
@@ -298,7 +298,8 @@ class ProductController extends AbstractController
         '/',
         'search',
         methods: ['GET'],
-        condition: 'request.query.get("search") !== ""'
+        condition: 'request.query.get("search") !== ""',
+        priority: 1
     )]
     public function search(Request $request): JsonResponse
     {
@@ -306,7 +307,7 @@ class ProductController extends AbstractController
         // if products not found empty array will be return
         // return HTTP 200 (OK)
 
-        return $this->json([]);
+        return $this->json(['test']);
     }
     
     /**
@@ -335,6 +336,6 @@ GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
 POST /catalog/products
 PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
 DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
-GET /catalog/products?search=nike air
+GET /catalog/products/?search=nike air
 GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
 ```
