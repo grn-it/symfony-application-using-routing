@@ -188,3 +188,153 @@ PUT /catalog/categories/16793782-d36c-4b6a-97d4-2e6c1fba8782
 DELETE /catalog/categories/2a54a70a-0765-4d0d-99b3-b57a30d3ed67
 GET /catalog/categories/jeans/products
 ```
+
+## Product Controller
+```php
+// src/Controller/Catalog/ProductController.php
+
+#[Route('/products', 'products_')]
+class ProductController extends AbstractController
+{
+    /**
+     * Return list of products
+     */
+    #[Route(
+        '/',
+        'list',
+        methods: ['GET']
+    )]
+    public function list(): JsonResponse
+    {
+        // make request to Product repository
+        // if products is empty return empty array
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Return single Product
+     */
+    #[Route(
+        '/{uuid}',
+        'item',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['GET']
+    )]
+    public function item(string $uuid): JsonResponse
+    {
+        // make find request to Product repository
+        // if Product not found return HTTP 404 (Not Found)
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Add new Product
+     */
+    #[Route(
+        '/',
+        'add',
+        methods: ['POST'],
+        condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
+    )]
+    public function add(Request $request): JsonResponse
+    {
+        // deserialize data from Request to Product object
+        // validate Product object data (if validation fail return error message with status HTTP 400 (Bad Request))
+        // persist to database
+        // return HTTP 201 (Created)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Edit Product
+     */
+    #[Route(
+        '/{uuid}',
+        'edit',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['PUT'],
+        condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
+    )]
+    public function edit(string $uuid, Request $request): JsonResponse
+    {
+        // make find request to Product repository
+        // if Product not found return HTTP 404 (Not Found)
+        // deserialize data from Request and populate to exist Product object
+        // validate Product object data (if validation fail return error message with status HTTP 400 (Bad Request))
+        // persist edited Product object to database
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Delete Product
+     */
+    #[Route(
+        '/{uuid}',
+        'delete',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['DELETE']
+    )]
+    public function delete(string $uuid): JsonResponse
+    {
+        // make find request to Product repository
+        // if Product not found return HTTP 404 (Not Found)
+        // delete Product from database
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Search Product by all categories in Catalog
+     */
+    #[Route(
+        '/',
+        'search',
+        methods: ['GET'],
+        condition: 'request.query.get("search") !== ""'
+    )]
+    public function search(Request $request): JsonResponse
+    {
+        // make search request to Product repository
+        // if products not found empty array will be return
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+    
+    /**
+     * Return list of reviews of specified product
+     */
+    #[Route(
+        '/{uuid}/reviews',
+        'reviews_list',
+        methods: ['GET']
+    )]
+    public function reviews(): JsonResponse
+    {
+        // make request to Product repository for reviews
+        // if reviews list is empty return empty array
+        // return HTTP 200 (OK)
+
+        return $this->json(['test']);
+    }
+}
+```
+
+Will match these methods and paths:
+```
+GET /catalog/products
+GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
+POST /catalog/products
+PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
+DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
+GET /catalog/products?search=nike air
+GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
+```
