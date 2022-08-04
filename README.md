@@ -1,19 +1,22 @@
 # Symfony Application Using Routing
 
-Simple examples of how to use routing in a Symfony web application.  
+Sample of how to use routing in a Symfony web application.  
 
-The main meaning of these samples is in the configuration and routing settings, and not in the business logic, so the actions in the controllers have pseudo-code in the form of comments.  
+The main meaning of these sample is in the configuration and routing settings, and not in the business logic, so the actions in the controllers have pseudo-code as comments.  
 
-The developed API describes how a simple online store product catalog could work.  
+The API describes features of a product catalog in an online store.  
 
-List of entities (pseudo) that are used in this API:
+List of entities that are used in this API:
 - Catalog
 - Category
 - Product
 - Review
 
-The routing configuration for the controllers is set up like this.  
+Entities don't really exist, only controllers and actions are designed.
+
+The routing configuration for the controllers:  
 ```yaml
+# /config/routes.yaml
 controllers:
     resource: ../src/Controller/Catalog
     type: attribute
@@ -22,7 +25,7 @@ controllers:
     trailing_slash_on_root: false
 ```
 
-This means that the routes for all controllers in the src/Controller/Catalog directory will be prefixed with "/catalog", so this prefix can be omitted in the controllers themselves.  
+This means that the routes for all controllers in the `src/Controller/Catalog` directory will be prefixed with `/catalog`, so this prefix can be omitted in the controllers.  
 
 List of available routes:
 ```bash
