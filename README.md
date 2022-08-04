@@ -307,7 +307,7 @@ class ProductController extends AbstractController
         // if products not found empty array will be return
         // return HTTP 200 (OK)
 
-        return $this->json(['test']);
+        return $this->json([]);
     }
     
     /**
