@@ -7,7 +7,6 @@ The main meaning of these sample is in the configuration and routing settings, a
 The API describes features of a product catalog in an online store.  
 
 List of entities that are used in this API:
-- Catalog
 - Category
 - Product
 - Review
@@ -33,69 +32,36 @@ List of available routes:
 symfony console debug:router
 ```
 ```bash
- -------------------------------- -------- -------- ------ ------------------------------ 
-  Name                             Method   Scheme   Host   Path                          
- -------------------------------- -------- -------- ------ ------------------------------ 
-  catalog_categories_list          GET      ANY      ANY    /catalog/categories/          
-  catalog_products_list            GET      ANY      ANY    /catalog/products/            
-  catalog_reviews_list             GET      ANY      ANY    /catalog/reviews/             
-  _preview_error                   ANY      ANY      ANY    /_error/{code}.{_format}      
-  catalog_category_products_list   GET      ANY      ANY    /catalog/{category}/products  
-  catalog_categories_item          GET      ANY      ANY    /catalog/categories/{uuid}    
-  catalog_categories_add           POST     ANY      ANY    /catalog/categories/          
-  catalog_categories_edit          PUT      ANY      ANY    /catalog/categories/{uuid}    
-  catalog_categories_delete        DELETE   ANY      ANY    /catalog/categories/{uuid}    
-  catalog_products_search          GET      ANY      ANY    /catalog/products/            
-  catalog_products_item            GET      ANY      ANY    /catalog/products/{uuid}      
-  catalog_products_add             POST     ANY      ANY    /catalog/products/            
-  catalog_products_edit            PUT      ANY      ANY    /catalog/products/{uuid}      
-  catalog_products_delete          DELETE   ANY      ANY    /catalog/products/{uuid}      
-  catalog_reviews_item             GET      ANY      ANY    /catalog/reviews/{uuid}       
-  catalog_reviews_add              POST     ANY      ANY    /catalog/reviews/             
-  catalog_reviews_edit             PUT      ANY      ANY    /catalog/reviews/{uuid}       
-  catalog_reviews_delete           DELETE   ANY      ANY    /catalog/reviews/{uuid}       
- -------------------------------- -------- -------- ------ ------------------------------
+ ---------------------------------- -------- -------- ------ ----------------------------------------- 
+  Name                               Method   Scheme   Host   Path                                     
+ ---------------------------------- -------- -------- ------ ----------------------------------------- 
+  _preview_error                     ANY      ANY      ANY    /_error/{code}.{_format}                 
+  catalog_categories_list            GET      ANY      ANY    /catalog/categories/                     
+  catalog_categories_item            GET      ANY      ANY    /catalog/categories/{uuid}               
+  catalog_categories_add             POST     ANY      ANY    /catalog/categories/                     
+  catalog_categories_edit            PUT      ANY      ANY    /catalog/categories/{uuid}               
+  catalog_categories_delete          DELETE   ANY      ANY    /catalog/categories/{uuid}               
+  catalog_categories_products_list   GET      ANY      ANY    /catalog/categories/{category}/products  
+  catalog_products_list              GET      ANY      ANY    /catalog/products/                       
+  catalog_products_item              GET      ANY      ANY    /catalog/products/{uuid}                 
+  catalog_products_add               POST     ANY      ANY    /catalog/products/                       
+  catalog_products_edit              PUT      ANY      ANY    /catalog/products/{uuid}                 
+  catalog_products_delete            DELETE   ANY      ANY    /catalog/products/{uuid}                 
+  catalog_products_search            GET      ANY      ANY    /catalog/products/                       
+  catalog_products_reviews_list      GET      ANY      ANY    /catalog/products/{uuid}/reviews         
+  catalog_reviews_list               GET      ANY      ANY    /catalog/reviews/                        
+  catalog_reviews_item               GET      ANY      ANY    /catalog/reviews/{uuid}                  
+  catalog_reviews_add                POST     ANY      ANY    /catalog/reviews/                        
+  catalog_reviews_edit               PUT      ANY      ANY    /catalog/reviews/{uuid}                  
+  catalog_reviews_delete             DELETE   ANY      ANY    /catalog/reviews/{uuid}                  
+ ---------------------------------- -------- -------- ------ -----------------------------------------
 ```
-
-## Catalog Controller
-```php
-// src/Controller/Catalog/CatalogController.php
-
-class CatalogController extends AbstractController
-{
-    /**
-     * Return list of products by category
-     */
-    #[Route(
-        '/{category}/products',
-        'category_products_list',
-        requirements: ['category' => '.+'],
-        methods: ['GET']
-    )]
-    public function list(string $category): JsonResponse
-    {
-        // make find request to Product repository by category
-        // if there are no products then empty array will be return
-        // return HTTP 200 (OK)
-        
-        return $this->json([]);
-    }
-}
-```
-
-Will match these paths:
-```
-/catalog/jeans/products
-/catalog/shorts/products
-/catalog/shoes/products
-```
-Returns a list of products in the specified category.
 
 ## Category Controller
 ```php
 // src/Controller/Catalog/CategoryController.php
 
-#[Route('/categories')]
+#[Route('/categories', name: 'categories_')]
 class CategoryController extends AbstractController
 {
     /**
@@ -103,9 +69,8 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/',
-        'categories_list',
-        methods: ['GET'],
-        priority: 1
+        'list',
+        methods: ['GET']
     )]
     public function list(): JsonResponse
     {
@@ -121,7 +86,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_item',
+        'item',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['GET']
     )]
@@ -139,7 +104,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/',
-        'categories_add',
+        'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
     )]
@@ -158,7 +123,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_edit',
+        'edit',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['PUT'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -180,7 +145,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_delete',
+        'delete',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['DELETE']
     )]
@@ -191,6 +156,24 @@ class CategoryController extends AbstractController
         // delete Category from database
         // return HTTP 200 (OK)
         
+        return $this->json([]);
+    }
+
+    /**
+     * Return list of products in specified category
+     */
+    #[Route(
+        '/{category}/products',
+        'products_list',
+        requirements: ['category' => '.+'],
+        methods: ['GET']
+    )]
+    public function products(): JsonResponse
+    {
+        // make request to Category repository for products
+        // if products list is empty return empty array
+        // return HTTP 200 (OK)
+
         return $this->json([]);
     }
 }
