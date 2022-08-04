@@ -35,23 +35,23 @@ symfony console debug:router
  ---------------------------------- -------- -------- ------ ----------------------------------------- 
   Name                               Method   Scheme   Host   Path                                     
  ---------------------------------- -------- -------- ------ ----------------------------------------- 
-  catalog_products_search            GET      ANY      ANY    /catalog/products/                       
+  catalog_products_search            GET      ANY      ANY    /catalog/products                        
   _preview_error                     ANY      ANY      ANY    /_error/{code}.{_format}                 
-  catalog_categories_list            GET      ANY      ANY    /catalog/categories/                     
+  catalog_categories_list            GET      ANY      ANY    /catalog/categories                      
   catalog_categories_item            GET      ANY      ANY    /catalog/categories/{uuid}               
-  catalog_categories_add             POST     ANY      ANY    /catalog/categories/                     
+  catalog_categories_add             POST     ANY      ANY    /catalog/categories                      
   catalog_categories_edit            PUT      ANY      ANY    /catalog/categories/{uuid}               
   catalog_categories_delete          DELETE   ANY      ANY    /catalog/categories/{uuid}               
   catalog_categories_products_list   GET      ANY      ANY    /catalog/categories/{category}/products  
-  catalog_products_list              GET      ANY      ANY    /catalog/products/                       
+  catalog_products_list              GET      ANY      ANY    /catalog/products                        
   catalog_products_item              GET      ANY      ANY    /catalog/products/{uuid}                 
-  catalog_products_add               POST     ANY      ANY    /catalog/products/                       
+  catalog_products_add               POST     ANY      ANY    /catalog/products                        
   catalog_products_edit              PUT      ANY      ANY    /catalog/products/{uuid}                 
   catalog_products_delete            DELETE   ANY      ANY    /catalog/products/{uuid}                 
   catalog_products_reviews_list      GET      ANY      ANY    /catalog/products/{uuid}/reviews         
-  catalog_reviews_list               GET      ANY      ANY    /catalog/reviews/                        
+  catalog_reviews_list               GET      ANY      ANY    /catalog/reviews                         
   catalog_reviews_item               GET      ANY      ANY    /catalog/reviews/{uuid}                  
-  catalog_reviews_add                POST     ANY      ANY    /catalog/reviews/                        
+  catalog_reviews_add                POST     ANY      ANY    /catalog/reviews                         
   catalog_reviews_edit               PUT      ANY      ANY    /catalog/reviews/{uuid}                  
   catalog_reviews_delete             DELETE   ANY      ANY    /catalog/reviews/{uuid}                  
  ---------------------------------- -------- -------- ------ -----------------------------------------
@@ -68,7 +68,7 @@ class CategoryController extends AbstractController
      * Return list of categories
      */
     #[Route(
-        '/',
+        '',
         'list',
         methods: ['GET']
     )]
@@ -103,7 +103,7 @@ class CategoryController extends AbstractController
      * Add new Category
      */
     #[Route(
-        '/',
+        '',
         'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -200,7 +200,7 @@ class ProductController extends AbstractController
      * Return list of products
      */
     #[Route(
-        '/',
+        '',
         'list',
         methods: ['GET']
     )]
@@ -235,7 +235,7 @@ class ProductController extends AbstractController
      * Add new Product
      */
     #[Route(
-        '/',
+        '',
         'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -295,7 +295,7 @@ class ProductController extends AbstractController
      * Search Product by all categories in Catalog
      */
     #[Route(
-        '/',
+        '',
         'search',
         methods: ['GET'],
         condition: 'request.query.get("search") !== ""',
@@ -351,7 +351,7 @@ class ReviewController extends AbstractController
      * Return list of review
      */
     #[Route(
-        '/',
+        '',
         'list',
         methods: ['GET']
     )]
@@ -386,7 +386,7 @@ class ReviewController extends AbstractController
      * Add new Review
      */
     #[Route(
-        '/',
+        '',
         'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
