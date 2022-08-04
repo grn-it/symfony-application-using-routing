@@ -179,7 +179,7 @@ class CategoryController extends AbstractController
 }
 ```
 
-Will match these paths:
+Will match these methods and paths:
 ```
 GET /catalog/categories
 GET /catalog/categories/7ea27a43-b587-4baa-83c1-aa4ee52db2a1
