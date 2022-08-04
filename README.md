@@ -336,7 +336,7 @@ GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
 POST /catalog/products
 PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
 DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
-GET /catalog/products/?search=nike air
+GET /catalog/products?search=nike air
 GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
 ```
 
@@ -451,3 +451,6 @@ POST /catalog/reviews
 PUT /catalog/reviews/6300fae7-645f-4f1a-a558-fb68f7a00ec2
 DELETE /catalog/reviews/ebd7b29c-d900-4f70-a5e1-0dc8e547bc0d
 ```
+
+## Resources
+[Routing](https://symfony.com/doc/current/routing.html)  
