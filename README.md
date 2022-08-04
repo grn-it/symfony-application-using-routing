@@ -324,7 +324,7 @@ class ProductController extends AbstractController
         // if reviews list is empty return empty array
         // return HTTP 200 (OK)
 
-        return $this->json(['test']);
+        return $this->json([]);
     }
 }
 ```
