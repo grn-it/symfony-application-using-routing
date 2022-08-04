@@ -67,7 +67,7 @@ class CatalogController extends AbstractController
      * Return list of products by category
      */
     #[Route(
-        '/{category}',
+        '/{category}/products',
         'category_products_list',
         requirements: ['category' => '.+'],
         methods: ['GET']
