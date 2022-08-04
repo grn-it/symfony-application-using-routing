@@ -8,17 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/products')]
+#[Route('/products', 'products_')]
 class ProductController extends AbstractController
 {
     /**
      * Return list of products
      */
     #[Route(
-        '/',
-        'products_list',
-        methods: ['GET'],
-        priority: 1
+        '',
+        'list',
+        methods: ['GET']
     )]
     public function list(): JsonResponse
     {
@@ -30,29 +29,11 @@ class ProductController extends AbstractController
     }
 
     /**
-     * Search Product by all categories in Catalog
-     */
-    #[Route(
-        '/',
-        'products_search',
-        methods: ['GET'],
-        condition: 'request.query.get("search") !== ""'
-    )]
-    public function search(Request $request): JsonResponse
-    {
-        // make search request to Product repository
-        // if products not found empty array will be return
-        // return HTTP 200 (OK)
-        
-        return $this->json([]);
-    }
-
-    /**
      * Return single Product
      */
     #[Route(
         '/{uuid}',
-        'products_item',
+        'item',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['GET']
     )]
@@ -69,8 +50,8 @@ class ProductController extends AbstractController
      * Add new Product
      */
     #[Route(
-        '/',
-        'products_add',
+        '',
+        'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
     )]
@@ -89,7 +70,7 @@ class ProductController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'products_edit',
+        'edit',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['PUT'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -111,7 +92,7 @@ class ProductController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'products_delete',
+        'delete',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['DELETE']
     )]
@@ -120,6 +101,42 @@ class ProductController extends AbstractController
         // make find request to Product repository
         // if Product not found return HTTP 404 (Not Found)
         // delete Product from database
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Search Product by all categories in Catalog
+     */
+    #[Route(
+        '',
+        'search',
+        methods: ['GET'],
+        condition: 'request.query.get("search") !== ""',
+        priority: 1
+    )]
+    public function search(Request $request): JsonResponse
+    {
+        // make search request to Product repository
+        // if products not found empty array will be return
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+    
+    /**
+     * Return list of reviews of specified product
+     */
+    #[Route(
+        '/{uuid}/reviews',
+        'reviews_list',
+        methods: ['GET']
+    )]
+    public function reviews(): JsonResponse
+    {
+        // make request to Product repository for reviews
+        // if reviews list is empty return empty array
         // return HTTP 200 (OK)
 
         return $this->json([]);

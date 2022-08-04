@@ -8,17 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/reviews')]
+#[Route('/reviews', 'reviews_')]
 class ReviewController extends AbstractController
 {
     /**
      * Return list of review
      */
     #[Route(
-        '/',
-        'reviews_list',
-        methods: ['GET'],
-        priority: 1
+        '',
+        'list',
+        methods: ['GET']
     )]
     public function list(): JsonResponse
     {
@@ -34,7 +33,7 @@ class ReviewController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'reviews_item',
+        'item',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['GET']
     )]
@@ -51,8 +50,8 @@ class ReviewController extends AbstractController
      * Add new Review
      */
     #[Route(
-        '/',
-        'reviews_add',
+        '',
+        'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
     )]
@@ -71,7 +70,7 @@ class ReviewController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'reviews_edit',
+        'edit',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['PUT'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -93,7 +92,7 @@ class ReviewController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'reviews_delete',
+        'delete',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['DELETE']
     )]

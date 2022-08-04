@@ -10,17 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/categories')]
+#[Route('/categories', name: 'categories_')]
 class CategoryController extends AbstractController
 {
     /**
      * Return list of categories
      */
     #[Route(
-        '/',
-        'categories_list',
-        methods: ['GET'],
-        priority: 1
+        '',
+        'list',
+        methods: ['GET']
     )]
     public function list(): JsonResponse
     {
@@ -36,7 +35,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_item',
+        'item',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['GET']
     )]
@@ -53,8 +52,8 @@ class CategoryController extends AbstractController
      * Add new Category
      */
     #[Route(
-        '/',
-        'categories_add',
+        '',
+        'add',
         methods: ['POST'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
     )]
@@ -73,7 +72,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_edit',
+        'edit',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['PUT'],
         condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
@@ -95,7 +94,7 @@ class CategoryController extends AbstractController
      */
     #[Route(
         '/{uuid}',
-        'categories_delete',
+        'delete',
         requirements: ['uuid' => Requirement::UUID],
         methods: ['DELETE']
     )]
@@ -106,6 +105,24 @@ class CategoryController extends AbstractController
         // delete Category from database
         // return HTTP 200 (OK)
         
+        return $this->json([]);
+    }
+
+    /**
+     * Return list of products in specified category
+     */
+    #[Route(
+        '/{category}/products',
+        'products_list',
+        requirements: ['category' => '.+'],
+        methods: ['GET']
+    )]
+    public function products(): JsonResponse
+    {
+        // make request to Category repository for products
+        // if products list is empty return empty array
+        // return HTTP 200 (OK)
+
         return $this->json([]);
     }
 }
