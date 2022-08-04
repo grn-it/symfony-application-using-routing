@@ -181,6 +181,11 @@ class CategoryController extends AbstractController
 
 Will match these paths:
 ```
-/catalog/categories
-/catalog/categories/
+GET /catalog/categories
+GET /catalog/categories/7ea27a43-b587-4baa-83c1-aa4ee52db2a1
+POST /catalog/categories
+PUT /catalog/categories/16793782-d36c-4b6a-97d4-2e6c1fba8782
+DELETE /catalog/categories/2a54a70a-0765-4d0d-99b3-b57a30d3ed67
+GET /catalog/categories/jeans/products
+/catalog/categories/jeans
 ```
