@@ -339,3 +339,115 @@ DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
 GET /catalog/products/?search=nike air
 GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
 ```
+
+## Review Controller
+```php
+// src/Controller/Catalog/ReviewController.php
+
+#[Route('/reviews', 'reviews_')]
+class ReviewController extends AbstractController
+{
+    /**
+     * Return list of review
+     */
+    #[Route(
+        '/',
+        'list',
+        methods: ['GET']
+    )]
+    public function list(): JsonResponse
+    {
+        // make request to Review repository
+        // if reviews is empty return empty array
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Return single Review
+     */
+    #[Route(
+        '/{uuid}',
+        'item',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['GET']
+    )]
+    public function item(string $uuid): JsonResponse
+    {
+        // make find request to Review repository
+        // if Review not found return HTTP 404 (Not Found)
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Add new Review
+     */
+    #[Route(
+        '/',
+        'add',
+        methods: ['POST'],
+        condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
+    )]
+    public function add(Request $request): JsonResponse
+    {
+        // deserialize data from Request to Review object
+        // validate Review object data (if validation fail return error message with status HTTP 400 (Bad Request))
+        // persist to database
+        // return HTTP 201 (Created)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Edit Review
+     */
+    #[Route(
+        '/{uuid}',
+        'edit',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['PUT'],
+        condition: "service('app.routing.condition.checker').isRequestBodyNotEmpty(request)"
+    )]
+    public function edit(string $uuid, Request $request): JsonResponse
+    {
+        // make find request to Review repository
+        // if Review not found return HTTP 404 (Not Found)
+        // deserialize data from Request and populate to exist Review object
+        // validate Review object data (if validation fail return error message with status HTTP 400 (Bad Request))
+        // persist edited Review object to database
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+
+    /**
+     * Delete Review
+     */
+    #[Route(
+        '/{uuid}',
+        'delete',
+        requirements: ['uuid' => Requirement::UUID],
+        methods: ['DELETE']
+    )]
+    public function delete(string $uuid): JsonResponse
+    {
+        // make find request to Review repository
+        // if Review not found return HTTP 404 (Not Found)
+        // delete Review from database
+        // return HTTP 200 (OK)
+
+        return $this->json([]);
+    }
+}
+```
+Will match these methods and paths:
+```
+GET /catalog/reviews
+GET /catalog/reviews/71ca5f0a-7e45-44e5-85fe-252d25ffb45e
+POST /catalog/reviews
+PUT /catalog/reviews/6300fae7-645f-4f1a-a558-fb68f7a00ec2
+DELETE /catalog/reviews/ebd7b29c-d900-4f70-a5e1-0dc8e547bc0d
+```
