@@ -15,6 +15,8 @@ class CategoryController extends AbstractController
 {
     /**
      * Return list of categories
+     * 
+     * Matches method and path: GET /catalog/categories
      */
     #[Route(
         '',
@@ -32,6 +34,8 @@ class CategoryController extends AbstractController
 
     /**
      * Return single Category
+     * 
+     * Matches method and path: GET /catalog/categories/7ea27a43-b587-4baa-83c1-aa4ee52db2a1
      */
     #[Route(
         '/{uuid}',
@@ -50,6 +54,8 @@ class CategoryController extends AbstractController
 
     /**
      * Add new Category
+     * 
+     * Matches method and path: POST /catalog/categories
      */
     #[Route(
         '',
@@ -69,6 +75,8 @@ class CategoryController extends AbstractController
 
     /**
      * Edit Category
+     * 
+     * Matches method and path: PUT /catalog/categories/16793782-d36c-4b6a-97d4-2e6c1fba8782
      */
     #[Route(
         '/{uuid}',
@@ -91,6 +99,8 @@ class CategoryController extends AbstractController
 
     /**
      * Delete Category
+     * 
+     * Matches method and path: DELETE /catalog/categories/2a54a70a-0765-4d0d-99b3-b57a30d3ed67
      */
     #[Route(
         '/{uuid}',
@@ -110,6 +120,8 @@ class CategoryController extends AbstractController
 
     /**
      * Return list of products in specified category
+     * 
+     * Matches method and path: GET /catalog/categories/jeans/products
      */
     #[Route(
         '/{category}/products',

@@ -13,6 +13,8 @@ class ReviewController extends AbstractController
 {
     /**
      * Return list of review
+     * 
+     * Matches method and path: GET /catalog/reviews
      */
     #[Route(
         '',
@@ -30,6 +32,8 @@ class ReviewController extends AbstractController
 
     /**
      * Return single Review
+     * 
+     * Matches method and path: GET /catalog/reviews/71ca5f0a-7e45-44e5-85fe-252d25ffb45e
      */
     #[Route(
         '/{uuid}',
@@ -48,6 +52,8 @@ class ReviewController extends AbstractController
 
     /**
      * Add new Review
+     * 
+     * Matches method and path: POST /catalog/reviews
      */
     #[Route(
         '',
@@ -67,6 +73,8 @@ class ReviewController extends AbstractController
 
     /**
      * Edit Review
+     * 
+     * Matches method and path: PUT /catalog/reviews/6300fae7-645f-4f1a-a558-fb68f7a00ec2
      */
     #[Route(
         '/{uuid}',
@@ -89,6 +97,8 @@ class ReviewController extends AbstractController
 
     /**
      * Delete Review
+     * 
+     * Matches method and path: DELETE /catalog/reviews/ebd7b29c-d900-4f70-a5e1-0dc8e547bc0d
      */
     #[Route(
         '/{uuid}',

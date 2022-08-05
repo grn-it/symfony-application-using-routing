@@ -13,6 +13,8 @@ class ProductController extends AbstractController
 {
     /**
      * Return list of products
+     * 
+     * Matches method and path: GET /catalog/products
      */
     #[Route(
         '',
@@ -30,6 +32,8 @@ class ProductController extends AbstractController
 
     /**
      * Return single Product
+     * 
+     * Matches method and path: GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
      */
     #[Route(
         '/{uuid}',
@@ -48,6 +52,8 @@ class ProductController extends AbstractController
 
     /**
      * Add new Product
+     * 
+     * Matches method and path: POST /catalog/products
      */
     #[Route(
         '',
@@ -67,6 +73,8 @@ class ProductController extends AbstractController
 
     /**
      * Edit Product
+     * 
+     * Matches method and path: PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
      */
     #[Route(
         '/{uuid}',
@@ -89,6 +97,8 @@ class ProductController extends AbstractController
 
     /**
      * Delete Product
+     * 
+     * Matches method and path: DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
      */
     #[Route(
         '/{uuid}',
@@ -108,6 +118,8 @@ class ProductController extends AbstractController
 
     /**
      * Search Product by all categories in Catalog
+     * 
+     * Matches method and path: GET /catalog/products?search=nike
      */
     #[Route(
         '',
@@ -127,6 +139,8 @@ class ProductController extends AbstractController
     
     /**
      * Return list of reviews of specified product
+     * 
+     * Matches method and path: GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
      */
     #[Route(
         '/{uuid}/reviews',
