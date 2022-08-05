@@ -117,7 +117,7 @@ class CategoryController extends AbstractController
         requirements: ['category' => '.+'],
         methods: ['GET']
     )]
-    public function products(): JsonResponse
+    public function products(string $category): JsonResponse
     {
         // make request to Category repository for products
         // if products list is empty return empty array

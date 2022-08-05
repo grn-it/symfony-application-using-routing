@@ -133,7 +133,7 @@ class ProductController extends AbstractController
         'reviews_list',
         methods: ['GET']
     )]
-    public function reviews(): JsonResponse
+    public function reviews(string $uuid): JsonResponse
     {
         // make request to Product repository for reviews
         // if reviews list is empty return empty array
