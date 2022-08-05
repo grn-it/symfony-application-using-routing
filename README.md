@@ -66,6 +66,8 @@ class CategoryController extends AbstractController
 {
     /**
      * Return list of categories
+     * 
+     * Matches method and path: GET /catalog/categories
      */
     #[Route(
         '',
@@ -83,6 +85,8 @@ class CategoryController extends AbstractController
 
     /**
      * Return single Category
+     * 
+     * Matches method and path: GET /catalog/categories/7ea27a43-b587-4baa-83c1-aa4ee52db2a1
      */
     #[Route(
         '/{uuid}',
@@ -101,6 +105,8 @@ class CategoryController extends AbstractController
 
     /**
      * Add new Category
+     * 
+     * Matches method and path: POST /catalog/categories
      */
     #[Route(
         '',
@@ -120,6 +126,8 @@ class CategoryController extends AbstractController
 
     /**
      * Edit Category
+     * 
+     * Matches method and path: PUT /catalog/categories/16793782-d36c-4b6a-97d4-2e6c1fba8782
      */
     #[Route(
         '/{uuid}',
@@ -142,6 +150,8 @@ class CategoryController extends AbstractController
 
     /**
      * Delete Category
+     * 
+     * Matches method and path: DELETE /catalog/categories/2a54a70a-0765-4d0d-99b3-b57a30d3ed67
      */
     #[Route(
         '/{uuid}',
@@ -161,6 +171,8 @@ class CategoryController extends AbstractController
 
     /**
      * Return list of products in specified category
+     * 
+     * Matches method and path: GET /catalog/categories/jeans/products
      */
     #[Route(
         '/{category}/products',
@@ -179,16 +191,6 @@ class CategoryController extends AbstractController
 }
 ```
 
-Will match these methods and paths:
-```
-GET /catalog/categories
-GET /catalog/categories/7ea27a43-b587-4baa-83c1-aa4ee52db2a1
-POST /catalog/categories
-PUT /catalog/categories/16793782-d36c-4b6a-97d4-2e6c1fba8782
-DELETE /catalog/categories/2a54a70a-0765-4d0d-99b3-b57a30d3ed67
-GET /catalog/categories/jeans/products
-```
-
 ## Product Controller
 ```php
 // src/Controller/Catalog/ProductController.php
@@ -198,6 +200,8 @@ class ProductController extends AbstractController
 {
     /**
      * Return list of products
+     * 
+     * Matches method and path: GET /catalog/products
      */
     #[Route(
         '',
@@ -215,6 +219,8 @@ class ProductController extends AbstractController
 
     /**
      * Return single Product
+     * 
+     * Matches method and path: GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
      */
     #[Route(
         '/{uuid}',
@@ -233,6 +239,8 @@ class ProductController extends AbstractController
 
     /**
      * Add new Product
+     * 
+     * Matches method and path: POST /catalog/products
      */
     #[Route(
         '',
@@ -252,6 +260,8 @@ class ProductController extends AbstractController
 
     /**
      * Edit Product
+     * 
+     * Matches method and path: PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
      */
     #[Route(
         '/{uuid}',
@@ -274,6 +284,8 @@ class ProductController extends AbstractController
 
     /**
      * Delete Product
+     * 
+     * Matches method and path: DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
      */
     #[Route(
         '/{uuid}',
@@ -293,6 +305,8 @@ class ProductController extends AbstractController
 
     /**
      * Search Product by all categories in Catalog
+     * 
+     * Matches method and path: GET /catalog/products?search=nike
      */
     #[Route(
         '',
@@ -312,6 +326,8 @@ class ProductController extends AbstractController
     
     /**
      * Return list of reviews of specified product
+     * 
+     * Matches method and path: GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
      */
     #[Route(
         '/{uuid}/reviews',
@@ -329,17 +345,6 @@ class ProductController extends AbstractController
 }
 ```
 
-Will match these methods and paths:
-```
-GET /catalog/products
-GET /catalog/products/756ab18c-31a1-4981-b8d0-67eb8f195e80
-POST /catalog/products
-PUT /catalog/products/3f3652c1-990a-4b5c-bb36-0222df2b09e1
-DELETE /catalog/products/a3494f19-5079-4841-854e-63416dd54de5
-GET /catalog/products?search=nike air
-GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
-```
-
 ## Review Controller
 ```php
 // src/Controller/Catalog/ReviewController.php
@@ -349,6 +354,8 @@ class ReviewController extends AbstractController
 {
     /**
      * Return list of review
+     * 
+     * Matches method and path: GET /catalog/reviews
      */
     #[Route(
         '',
@@ -366,6 +373,8 @@ class ReviewController extends AbstractController
 
     /**
      * Return single Review
+     * 
+     * Matches method and path: GET /catalog/reviews/71ca5f0a-7e45-44e5-85fe-252d25ffb45e
      */
     #[Route(
         '/{uuid}',
@@ -384,6 +393,8 @@ class ReviewController extends AbstractController
 
     /**
      * Add new Review
+     * 
+     * Matches method and path: POST /catalog/reviews
      */
     #[Route(
         '',
@@ -403,6 +414,8 @@ class ReviewController extends AbstractController
 
     /**
      * Edit Review
+     * 
+     * Matches method and path: PUT /catalog/reviews/6300fae7-645f-4f1a-a558-fb68f7a00ec2
      */
     #[Route(
         '/{uuid}',
@@ -425,6 +438,8 @@ class ReviewController extends AbstractController
 
     /**
      * Delete Review
+     * 
+     * Matches method and path: DELETE /catalog/reviews/ebd7b29c-d900-4f70-a5e1-0dc8e547bc0d
      */
     #[Route(
         '/{uuid}',
@@ -442,14 +457,6 @@ class ReviewController extends AbstractController
         return $this->json([]);
     }
 }
-```
-Will match these methods and paths:
-```
-GET /catalog/reviews
-GET /catalog/reviews/71ca5f0a-7e45-44e5-85fe-252d25ffb45e
-POST /catalog/reviews
-PUT /catalog/reviews/6300fae7-645f-4f1a-a558-fb68f7a00ec2
-DELETE /catalog/reviews/ebd7b29c-d900-4f70-a5e1-0dc8e547bc0d
 ```
 
 ## Resources
