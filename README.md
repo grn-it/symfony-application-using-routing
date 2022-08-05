@@ -460,4 +460,4 @@ class ReviewController extends AbstractController
 ```
 
 ## Resources
-Symfony Documentation: [Routing](https://symfony.com/doc/current/routing.html)  
+Symfony documentation: [Routing](https://symfony.com/doc/current/routing.html)  
