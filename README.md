@@ -310,7 +310,7 @@ class ReviewController extends AbstractController
     )]
     public function list(): JsonResponse
     {
-        // make request to Review repository
+        // make get/filter request to Review repository
         // if reviews is empty return empty array
         // return HTTP 200 (OK)
 
