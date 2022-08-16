@@ -117,24 +117,4 @@ class CategoryController extends AbstractController
         
         return $this->json([]);
     }
-
-    /**
-     * Return list of products in specified category
-     * 
-     * Matches method and path: GET /catalog/categories/jeans/products
-     */
-    #[Route(
-        '/{category}/products',
-        'products_list',
-        requirements: ['category' => '.+'],
-        methods: ['GET']
-    )]
-    public function products(string $category): JsonResponse
-    {
-        // make request to Category repository for products
-        // if products list is empty return empty array
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
 }

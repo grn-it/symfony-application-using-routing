@@ -15,6 +15,9 @@ class ReviewController extends AbstractController
      * Return list of review
      * 
      * Matches method and path: GET /catalog/reviews
+     * 
+     * Returns a list of reviews for the product with UUID "cdedec98-d702-422d-9e34-dc624990331c"
+     * Matches method and path: GET /catalog/reviews?product=cdedec98-d702-422d-9e34-dc624990331c
      */
     #[Route(
         '',

@@ -15,15 +15,21 @@ class ProductController extends AbstractController
      * Return list of products
      * 
      * Matches method and path: GET /catalog/products
+     * 
+     * Returns a list of filtered products by "jeans" category
+     * Matches method and path: GET /catalog/products?categories[]=jeans
+     * 
+     * Returns a list of found products by word "nike" in the title, description or characteristic of the product
+     * Matches method and path: GET /catalog/products?search=nike
      */
     #[Route(
         '',
         'list',
         methods: ['GET']
     )]
-    public function list(): JsonResponse
+    public function list(Request $request): JsonResponse
     {
-        // make request to Product repository
+        // make get/filter/search request to Product repository
         // if products is empty return empty array
         // return HTTP 200 (OK)
 
@@ -111,46 +117,6 @@ class ProductController extends AbstractController
         // make find request to Product repository
         // if Product not found return HTTP 404 (Not Found)
         // delete Product from database
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
-
-    /**
-     * Search Product by all categories in Catalog
-     * 
-     * Matches method and path: GET /catalog/products?search=nike
-     */
-    #[Route(
-        '',
-        'search',
-        methods: ['GET'],
-        condition: 'request.query.get("search") !== ""',
-        priority: 1
-    )]
-    public function search(Request $request): JsonResponse
-    {
-        // make search request to Product repository
-        // if products not found empty array will be return
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
-    
-    /**
-     * Return list of reviews of specified product
-     * 
-     * Matches method and path: GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
-     */
-    #[Route(
-        '/{uuid}/reviews',
-        'reviews_list',
-        methods: ['GET']
-    )]
-    public function reviews(string $uuid): JsonResponse
-    {
-        // make request to Product repository for reviews
-        // if reviews list is empty return empty array
         // return HTTP 200 (OK)
 
         return $this->json([]);

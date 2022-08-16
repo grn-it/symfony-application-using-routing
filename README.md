@@ -32,29 +32,26 @@ List of available routes:
 symfony console debug:router
 ```
 ```bash
- ---------------------------------- -------- -------- ------ ----------------------------------------- 
-  Name                               Method   Scheme   Host   Path                                     
- ---------------------------------- -------- -------- ------ ----------------------------------------- 
-  catalog_products_search            GET      ANY      ANY    /catalog/products                        
-  _preview_error                     ANY      ANY      ANY    /_error/{code}.{_format}                 
-  catalog_categories_list            GET      ANY      ANY    /catalog/categories                      
-  catalog_categories_item            GET      ANY      ANY    /catalog/categories/{uuid}               
-  catalog_categories_add             POST     ANY      ANY    /catalog/categories                      
-  catalog_categories_edit            PUT      ANY      ANY    /catalog/categories/{uuid}               
-  catalog_categories_delete          DELETE   ANY      ANY    /catalog/categories/{uuid}               
-  catalog_categories_products_list   GET      ANY      ANY    /catalog/categories/{category}/products  
-  catalog_products_list              GET      ANY      ANY    /catalog/products                        
-  catalog_products_item              GET      ANY      ANY    /catalog/products/{uuid}                 
-  catalog_products_add               POST     ANY      ANY    /catalog/products                        
-  catalog_products_edit              PUT      ANY      ANY    /catalog/products/{uuid}                 
-  catalog_products_delete            DELETE   ANY      ANY    /catalog/products/{uuid}                 
-  catalog_products_reviews_list      GET      ANY      ANY    /catalog/products/{uuid}/reviews         
-  catalog_reviews_list               GET      ANY      ANY    /catalog/reviews                         
-  catalog_reviews_item               GET      ANY      ANY    /catalog/reviews/{uuid}                  
-  catalog_reviews_add                POST     ANY      ANY    /catalog/reviews                         
-  catalog_reviews_edit               PUT      ANY      ANY    /catalog/reviews/{uuid}                  
-  catalog_reviews_delete             DELETE   ANY      ANY    /catalog/reviews/{uuid}                  
- ---------------------------------- -------- -------- ------ -----------------------------------------
+ --------------------------- -------- -------- ------ ---------------------------- 
+  Name                        Method   Scheme   Host   Path                        
+ --------------------------- -------- -------- ------ ---------------------------- 
+  _preview_error              ANY      ANY      ANY    /_error/{code}.{_format}    
+  catalog_categories_list     GET      ANY      ANY    /catalog/categories         
+  catalog_categories_item     GET      ANY      ANY    /catalog/categories/{uuid}  
+  catalog_categories_add      POST     ANY      ANY    /catalog/categories         
+  catalog_categories_edit     PUT      ANY      ANY    /catalog/categories/{uuid}  
+  catalog_categories_delete   DELETE   ANY      ANY    /catalog/categories/{uuid}  
+  catalog_products_list       GET      ANY      ANY    /catalog/products           
+  catalog_products_item       GET      ANY      ANY    /catalog/products/{uuid}    
+  catalog_products_add        POST     ANY      ANY    /catalog/products           
+  catalog_products_edit       PUT      ANY      ANY    /catalog/products/{uuid}    
+  catalog_products_delete     DELETE   ANY      ANY    /catalog/products/{uuid}    
+  catalog_reviews_list        GET      ANY      ANY    /catalog/reviews            
+  catalog_reviews_item        GET      ANY      ANY    /catalog/reviews/{uuid}     
+  catalog_reviews_add         POST     ANY      ANY    /catalog/reviews            
+  catalog_reviews_edit        PUT      ANY      ANY    /catalog/reviews/{uuid}     
+  catalog_reviews_delete      DELETE   ANY      ANY    /catalog/reviews/{uuid}     
+ --------------------------- -------- -------- ------ ----------------------------
 ```
 
 ## Category Controller
@@ -168,26 +165,6 @@ class CategoryController extends AbstractController
         
         return $this->json([]);
     }
-
-    /**
-     * Return list of products in specified category
-     * 
-     * Matches method and path: GET /catalog/categories/jeans/products
-     */
-    #[Route(
-        '/{category}/products',
-        'products_list',
-        requirements: ['category' => '.+'],
-        methods: ['GET']
-    )]
-    public function products(string $category): JsonResponse
-    {
-        // make request to Category repository for products
-        // if products list is empty return empty array
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
 }
 ```
 
@@ -202,15 +179,21 @@ class ProductController extends AbstractController
      * Return list of products
      * 
      * Matches method and path: GET /catalog/products
+     * 
+     * Returns a list of filtered products by "jeans" category
+     * Matches method and path: GET /catalog/products?categories[]=jeans
+     * 
+     * Returns a list of found products by word "nike" in the title, description or characteristic of the product
+     * Matches method and path: GET /catalog/products?search=nike
      */
     #[Route(
         '',
         'list',
         methods: ['GET']
     )]
-    public function list(): JsonResponse
+    public function list(Request $request): JsonResponse
     {
-        // make request to Product repository
+        // make get/filter/search request to Product repository
         // if products is empty return empty array
         // return HTTP 200 (OK)
 
@@ -302,46 +285,6 @@ class ProductController extends AbstractController
 
         return $this->json([]);
     }
-
-    /**
-     * Search Product by all categories in Catalog
-     * 
-     * Matches method and path: GET /catalog/products?search=nike
-     */
-    #[Route(
-        '',
-        'search',
-        methods: ['GET'],
-        condition: 'request.query.get("search") !== ""',
-        priority: 1
-    )]
-    public function search(Request $request): JsonResponse
-    {
-        // make search request to Product repository
-        // if products not found empty array will be return
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
-    
-    /**
-     * Return list of reviews of specified product
-     * 
-     * Matches method and path: GET /catalog/products/cdedec98-d702-422d-9e34-dc624990331c/reviews
-     */
-    #[Route(
-        '/{uuid}/reviews',
-        'reviews_list',
-        methods: ['GET']
-    )]
-    public function reviews(string $uuid): JsonResponse
-    {
-        // make request to Product repository for reviews
-        // if reviews list is empty return empty array
-        // return HTTP 200 (OK)
-
-        return $this->json([]);
-    }
 }
 ```
 
@@ -356,6 +299,9 @@ class ReviewController extends AbstractController
      * Return list of review
      * 
      * Matches method and path: GET /catalog/reviews
+     * 
+     * Returns a list of reviews for the product with UUID "cdedec98-d702-422d-9e34-dc624990331c"
+     * Matches method and path: GET /catalog/reviews?product=cdedec98-d702-422d-9e34-dc624990331c
      */
     #[Route(
         '',
